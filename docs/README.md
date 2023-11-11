@@ -170,12 +170,12 @@ class LottoResult {
 특히 프로그램에서 결함이 자주 발생하는 부분 중 하나는 경계값이므로 이 부분을 꼼꼼하게 확인해야 한다.
 
 ```javascript
-test("보너스 번호가 당첨 번호와 중복되는 경우에 대한 예외 처리", () => {
-  mockQuestions(["1000", "1,2,3,4,5,6", "6"]);
+test('보너스 번호가 당첨 번호와 중복되는 경우에 대한 예외 처리', () => {
+  mockQuestions(['1000', '1,2,3,4,5,6', '6']);
   expect(() => {
     const app = new App();
     app.play();
-  }).toThrow("[ERROR]");
+  }).toThrow('[ERROR]');
 });
 ```
 
@@ -186,15 +186,12 @@ test("보너스 번호가 당첨 번호와 중복되는 경우에 대한 예외 
 예를 들어 단순히 파라미터의 값만 바뀌는 경우라면 아래와 같이 테스트할 수 있다.
 
 ```javascript
-test.each([["999"], ["0"], ["-123"]])(
-  "천원 미만의 금액에 대한 예외 처리",
-  (input) => {
-    expect(() => {
-      const app = new App(input);
-      app.play();
-    }).toThrow();
-  }
-);
+test.each([['999'], ['0'], ['-123']])('천원 미만의 금액에 대한 예외 처리', (input) => {
+  expect(() => {
+    const app = new App(input);
+    app.play();
+  }).toThrow();
+});
 ```
 
 ## 9. 테스트를 위한 코드는 구현 코드에서 분리되어야 한다
@@ -234,7 +231,7 @@ class LottoMachine {
 테스트하기 어려운 것을 클래스 내부가 아닌 외부로 분리하는 시도를 해 본다.
 
 ```javascript
-const MissionUtils = require("@woowacourse/mission-utils");
+const MissionUtils = require('@woowacourse/mission-utils');
 
 class Lotto {
   #numbers;
@@ -254,9 +251,9 @@ class LottoMachine {
 
 위 코드는 A 상황을 B로 바꾼 것이다.
 
-<img width="603" alt="스크린샷 2023-11-09 오후 3 34 55" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/968440e5-fe40-4833-8315-918c10b59e61">
+<img width="602" alt="스크린샷 2023-11-10 오전 8 04 54" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/c16e33e0-585a-4d9e-9e4f-605b86992c2a">
 
-<img width="604" alt="스크린샷 2023-11-09 오후 3 35 08" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/d8cefc81-2c9c-4426-8c66-c63168e7f258">
+<img width="604" alt="스크린샷 2023-11-10 오전 8 05 08" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/756266d6-5603-4d90-8762-b9fa26dd8cfa">
 
 (참고. [메서드 시그니처를 수정하여 테스트하기 좋은 메서드로 만들기](https://tecoble.techcourse.co.kr/post/2020-05-07-appropriate_method_for_test_by_parameter/))
 
@@ -283,13 +280,18 @@ class LottoMachine {
 12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)
 ```
 
+### ❗️예시 총 2개중 1개는 공백이 포함 되어있고, 1개는 공백이 포함이 안되어있어서 맨 앞, 뒤 공백에 대한 부분은 유효성 검증에 포함 시키지 않았습니다.❗️
+
+<img width="426" alt="스크린샷 2023-11-11 오후 12 17 05" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/59bb1f5f-6d2e-4edf-9ef7-0985d48f8e1e">
+
+<img width="431" alt="스크린샷 2023-11-11 오후 12 17 26" src="https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/4d2430a1-2c14-4b2a-8e34-1c960d6476ba">
+
 ### - **❗️예외상황❗️ **
 
 1. 방문할 날짜는 1 이상 31 이하의 숫자여야만한다.
    방문할 날짜가 범위를 벗어났을시 "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요." 라는 에러 메세지를 띄우고 다시 입력을 받는다.
-2. 방문할 날짜가 숫자가 아닐시에 예외가 발생한다.
-3. 방문할 날짜가 공백을 포함했을시에 예외가 발생한다.
-4. 앞, 뒤 공백 또한 포함하지 않는다. 앞이나 뒤에 공백이 포함됐을시에 예외를 발생시킨다.
+2. 방문할 날짜가 숫자가 아닐시에 "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요." 라는 에러 메세지를 띄우고 다시 입력을 받는다.
+3. 방문할 날짜 입력 값에 중간에 공백을 포함했을시에 "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요." 라는 에러 메세지를 띄우고 다시 입력을 받는다.
 
 ## 3. 주문 할 메뉴와 갯수를 입력 받는다.
 
