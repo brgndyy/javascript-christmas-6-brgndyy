@@ -1,6 +1,5 @@
 import DATE_CONFIG_DATA from '../database/configData/dateConfigData.js';
 import DateError from '../errors/DateError.js';
-import DELIMITER from '../constants/delimiters/delimiter.js';
 
 class EventCalendar {
   /**
@@ -16,26 +15,14 @@ class EventCalendar {
   #day;
 
   constructor(date) {
-    this.#validate(date);
     this.#date = Number(date);
+    this.#validate();
     this.#day = DATE_CONFIG_DATA.visit_day(this.#date);
   }
 
-  #validate(date) {
-    this.#validateSpace(date.toString());
-    this.#validateType(Number(date));
-    this.#validateRange(Number(date));
-  }
-
-  /**
-   * 문자열일때, 공백 검증을 위한 유효성 검증
-   * @param { string } dateToString
-   */
-
-  #validateSpace(dateToString) {
-    if (dateToString.includes(DELIMITER.space)) {
-      throw new DateError();
-    }
+  #validate() {
+    this.#validateType();
+    this.#validateRange();
   }
 
   /**
@@ -43,8 +30,8 @@ class EventCalendar {
    * @param { number } dateToNumber
    */
 
-  #validateType(dateToNumber) {
-    if (Number.isNaN(dateToNumber)) {
+  #validateType() {
+    if (Number.isNaN(this.#date)) {
       throw new DateError();
     }
   }
@@ -54,8 +41,8 @@ class EventCalendar {
    * @param { number } dateToNumber
    */
 
-  #validateRange(dateToNumber) {
-    if (dateToNumber < DATE_CONFIG_DATA.min_date || dateToNumber > DATE_CONFIG_DATA.max_date) {
+  #validateRange() {
+    if (this.#date < DATE_CONFIG_DATA.min_date || this.#date > DATE_CONFIG_DATA.max_date) {
       throw new DateError();
     }
   }

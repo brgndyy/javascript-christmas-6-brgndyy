@@ -5,7 +5,7 @@ const InputView = {
   async readDate() {
     const inputDateValue = await Console.readLineAsync(ORDER_MESSAGES.select_date);
 
-    return inputDateValue;
+    return inputDateValue.trim();
   },
 };
 
