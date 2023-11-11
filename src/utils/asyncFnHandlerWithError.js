@@ -7,7 +7,7 @@ import OutputView from '../views/OutputView.js';
  * @returns {Promise<*>}
  */
 
-export const asyncFnHandlerWithError = async (asyncFn, context) => {
+const asyncFnHandlerWithError = async (asyncFn, context) => {
   try {
     return await asyncFn.call(context);
   } catch (error) {
@@ -15,3 +15,5 @@ export const asyncFnHandlerWithError = async (asyncFn, context) => {
     return asyncFnHandlerWithError(asyncFn, context);
   }
 };
+
+export default asyncFnHandlerWithError;
