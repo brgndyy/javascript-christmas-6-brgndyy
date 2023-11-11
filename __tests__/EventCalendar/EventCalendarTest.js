@@ -10,7 +10,7 @@ describe('EventCalendar', () => {
     expect(calendar.getDay()).toBe(DATE_CONFIG_DATA.visit_day(validDate));
   });
 
-  test.each([[0], [32], [-3], ['abc'], [' 10 '], [' 3'], ['5 ']])(
+  test.each([['0'], ['32'], ['-3'], ['abc'], ['1 2'], [''], ['   ']])(
     '유효하지 않은 날짜 입력시 예외발생',
     (invalidDate) => {
       expect(() => new EventCalendar(invalidDate)).toThrow(DateError);
