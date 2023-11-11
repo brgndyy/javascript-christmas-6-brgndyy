@@ -6,6 +6,15 @@ const OutputView = {
     Console.print(ORDER_MESSAGES.start_message);
   },
 
+  /**
+   * 에러메세지 출력함수
+   * @param { string } errorMessage
+   */
+
+  printErrorMessage(errorMessage) {
+    Console.print(errorMessage);
+  },
+
   printMenu() {
     Console.print('<주문 메뉴>');
     // ...
