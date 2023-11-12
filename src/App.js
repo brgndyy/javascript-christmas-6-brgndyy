@@ -28,6 +28,7 @@ class App {
     await asyncFnHandlerWithError(this.#selectDate, this);
     await asyncFnHandlerWithError(this.#selectMenu, this);
     this.#printAllOrderedMenu();
+    this.#printOrderResultBeforeDiscount();
   }
 
   #printOrderStart() {
@@ -51,6 +52,11 @@ class App {
     OutputView.printResultStart(this.#visitDate);
     OutputView.printDivideLine();
     OutputView.printMenu(this.#totalOrderedList);
+    OutputView.printDivideLine();
+  }
+
+  #printOrderResultBeforeDiscount() {
+    OutputView.printPriceBeforeDiscount(this.#totalOrderPrice);
     OutputView.printDivideLine();
   }
 }

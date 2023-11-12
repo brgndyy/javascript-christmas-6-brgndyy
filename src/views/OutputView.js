@@ -3,6 +3,7 @@ import ORDER_MESSAGES from '../constants/messages/orderMessages.js';
 import RESULT_MESSAGES from '../constants/messages/resultMessages.js';
 import BANNER_MESSAGES from '../constants/messages/bannerMessages.js';
 import DELIMITER from '../constants/delimiters/delimiter.js';
+import formatPrice from '../utils/formatPrice.js';
 
 const OutputView = {
   printStartLine() {
@@ -29,6 +30,16 @@ const OutputView = {
     totalOrderedList.forEach(({ menu, quantity }) => {
       Console.print(RESULT_MESSAGES.ordered_menu_list(menu, quantity));
     });
+  },
+
+  /**
+   * 할인 전 총주문 금액 출력 함수
+   * @param { number } totalPrice
+   */
+
+  printPriceBeforeDiscount(totalPrice) {
+    Console.print(BANNER_MESSAGES.total_price_before_discount);
+    Console.print(RESULT_MESSAGES.price_result(formatPrice(totalPrice)));
   },
 
   /**
