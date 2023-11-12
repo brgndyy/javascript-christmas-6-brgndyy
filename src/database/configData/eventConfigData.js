@@ -1,5 +1,5 @@
 import deepFreeze from '../../utils/deepFreeze.js';
-import FREE_GIFT_MENU from '../menus/freeGiftMenu.js';
+import { TOTAL_FREE_GIFT_PRICE } from '../menus/freeGiftMenu.js';
 
 export const WEEK_DAY_EVENT_CONFIG_DATA = deepFreeze({
   title: '평일 할인',
@@ -20,7 +20,7 @@ export const SPECIAL_EVENT_CONFIG_DATA = deepFreeze({
 
 export const FREE_GIFT_EVENT_CONFIG_DATA = deepFreeze({
   title: '증정 이벤트',
-  sale_price: FREE_GIFT_MENU.price,
+  sale_price: TOTAL_FREE_GIFT_PRICE,
 });
 
 export const TARGET_EVENT_CONFIG_DATA = deepFreeze({
