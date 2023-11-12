@@ -106,6 +106,22 @@ const OutputView = {
   },
 
   /**
+   * 이벤트 뱃지 출력 함수
+   * @param { string } eventBadge
+   */
+
+  printEventBadge(eventBadge) {
+    Console.print(BANNER_MESSAGES.event_badge);
+
+    if (eventBadge) {
+      Console.print(eventBadge);
+      return;
+    }
+
+    Console.print(RESULT_MESSAGES.none_benefit);
+  },
+
+  /**
    * 에러메세지 출력함수
    * @param { string } errorMessage
    */

@@ -5,6 +5,7 @@ import EventCalendar from './domains/EventCalendar.js';
 import Order from './domains/Order.js';
 import FreeGiftService from './service/FreeGiftService.js';
 import DiscountMachine from './domains/DiscountMachine.js';
+import EventBadgeService from './service/EventBadgeService.js';
 
 class App {
   /**
@@ -47,6 +48,7 @@ class App {
     this.#printDiscountList();
     this.#printTotalDiscountPrice();
     this.#printTotalPriceAfterDiscount();
+    this.#printEventBadge();
   }
 
   #printOrderStart() {
@@ -111,6 +113,12 @@ class App {
 
     OutputView.printTotalPriceAfterDiscount(totalPriceAfterDiscount);
     OutputView.printDivideLine();
+  }
+
+  #printEventBadge() {
+    const eventBadge = EventBadgeService.isEligibleForEventBadge(this.#totalDiscountPrice);
+
+    OutputView.printEventBadge(eventBadge);
   }
 }
 
