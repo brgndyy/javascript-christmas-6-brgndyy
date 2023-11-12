@@ -95,6 +95,17 @@ const OutputView = {
   },
 
   /**
+   * 할인 후 예상 결제 금액 출력 함수
+   * @param { number } totalPriceAfterDiscount
+   */
+
+  printTotalPriceAfterDiscount(totalPriceAfterDiscount) {
+    Console.print(BANNER_MESSAGES.total_price_after_discount);
+
+    Console.print(RESULT_MESSAGES.price_result(formatPrice(totalPriceAfterDiscount)));
+  },
+
+  /**
    * 에러메세지 출력함수
    * @param { string } errorMessage
    */

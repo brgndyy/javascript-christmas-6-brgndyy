@@ -46,6 +46,7 @@ class App {
     this.#printFreeGiftMenu();
     this.#printDiscountList();
     this.#printTotalDiscountPrice();
+    this.#printTotalPriceAfterDiscount();
   }
 
   #printOrderStart() {
@@ -99,6 +100,16 @@ class App {
     this.#totalDiscountPrice = this.#discountMachine.getTotalDiscount();
 
     OutputView.printTotalDiscountPrice(this.#totalDiscountPrice);
+    OutputView.printDivideLine();
+  }
+
+  #printTotalPriceAfterDiscount() {
+    const totalPriceAfterDiscount = this.#discountMachine.getTotalPriceAfterDiscount(
+      this.#totalOrderPrice,
+      this.#totalDiscountPrice,
+    );
+
+    OutputView.printTotalPriceAfterDiscount(totalPriceAfterDiscount);
     OutputView.printDivideLine();
   }
 }

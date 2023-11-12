@@ -6,6 +6,7 @@ const BANNER_MESSAGES = deepFreeze({
   free_gift: '<증정 메뉴>',
   discount_list: '<혜택 내역>',
   total_discount: '<총혜택 금액>',
+  total_price_after_discount: '<할인 후 예상 결제 금액>',
 });
 
 export default BANNER_MESSAGES;
