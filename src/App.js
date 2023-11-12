@@ -3,6 +3,7 @@ import OutputView from './views/OutputView.js';
 import InputView from './views/InputView.js';
 import EventCalendar from './domains/EventCalendar.js';
 import Order from './domains/Order.js';
+import FreeGiftService from './service/FreeGiftService.js';
 
 class App {
   /**
@@ -29,6 +30,7 @@ class App {
     await asyncFnHandlerWithError(this.#selectMenu, this);
     this.#printAllOrderedMenu();
     this.#printOrderResultBeforeDiscount();
+    this.#printFreeGiftMenu();
   }
 
   #printOrderStart() {
@@ -57,6 +59,13 @@ class App {
 
   #printOrderResultBeforeDiscount() {
     OutputView.printPriceBeforeDiscount(this.#totalOrderPrice);
+    OutputView.printDivideLine();
+  }
+
+  #printFreeGiftMenu() {
+    const freeGift = FreeGiftService.isEligibleForFreeGift(this.#totalOrderPrice);
+
+    OutputView.printIsEligibleFreeGift(freeGift);
     OutputView.printDivideLine();
   }
 }

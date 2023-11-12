@@ -43,6 +43,22 @@ const OutputView = {
   },
 
   /**
+   * 증정 메뉴 유무에 따른 증정 메뉴 출력 함수
+   * @param { boolean } freeGiftCondition
+   */
+
+  printIsEligibleFreeGift(freeGift) {
+    Console.print(BANNER_MESSAGES.free_gift);
+
+    if (freeGift.length) {
+      freeGift.forEach((gift) => Console.print(RESULT_MESSAGES.free_gift(gift.menu)));
+      return;
+    }
+
+    Console.print(RESULT_MESSAGES.none_benefit);
+  },
+
+  /**
    * 에러메세지 출력함수
    * @param { string } errorMessage
    */
