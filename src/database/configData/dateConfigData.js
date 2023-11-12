@@ -12,6 +12,16 @@ const MIN_DATE = 1;
 
 const MAX_DATE = new Date(YEAR_STANDARD, MONTH_STANDARD + 1, 0).getDate();
 
+const DAY_TO_NUMBER = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+};
+
 /**
  * 방문 날짜에 해당 하는 요일 반환
  * @param { number } nowDate
@@ -25,6 +35,7 @@ const DATE_CONFIG_DATA = deepFreeze({
   month_standard: MONTH_STANDARD,
   min_date: MIN_DATE,
   max_date: MAX_DATE,
+  day_to_number: DAY_TO_NUMBER,
   visit_day: (nowDate) => VISIT_DAY(nowDate),
 });
 
