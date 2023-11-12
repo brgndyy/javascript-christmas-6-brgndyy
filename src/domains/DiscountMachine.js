@@ -10,6 +10,7 @@ import {
 import FREE_GIFT_CONDITION from '../database/configData/freeGiftConfigData.js';
 import ORDER_CONFIG_DATA from '../database/configData/orderConfigData.js';
 import { TOTAL_FREE_GIFT_PRICE } from '../database/menus/freeGiftMenu.js';
+import CalculatorService from '../service/CalculatorService.js';
 
 class DiscountMachine {
   /**
@@ -39,7 +40,7 @@ class DiscountMachine {
     };
   }
 
-  #calculateDiscountForChristmas() {
+  #calculateDiscountForTargetEvent() {
     const dateOfMonth = this.#eventCalendar.getDate();
     if (
       dateOfMonth >= TARGET_EVENT_CONFIG_DATA.sale_start_day &&
@@ -61,7 +62,7 @@ class DiscountMachine {
 
   #calculateDiscountForWeekDay(orderList) {
     if (this.#eventCalendar.isWeekday()) {
-      return this.#calculateQuantityAndPrice(
+      return CalculatorService.calculateQuantityAndPriceFromData(
         orderList,
         WEEK_DAY_EVENT_CONFIG_DATA.sale_category,
         WEEK_DAY_EVENT_CONFIG_DATA.sale_price,
@@ -72,7 +73,7 @@ class DiscountMachine {
 
   #calculateDiscountForWeekend(orderList) {
     if (this.#eventCalendar.isWeekend()) {
-      return this.#calculateQuantityAndPrice(
+      return CalculatorService.calculateQuantityAndPriceFromData(
         orderList,
         WEEKEND_EVENT_CONFIG_DATA.sale_category,
         WEEKEND_EVENT_CONFIG_DATA.sale_price,
@@ -103,36 +104,6 @@ class DiscountMachine {
   }
 
   /**
-   * 메뉴 갯수에 맞춰서 할인 금액 계산 해주는 함수
-   * @param { object[] } orderList
-   * @param { string } saleCategory
-   * @param { number } salePrice
-   */
-
-  #calculateQuantityAndPrice(orderList, saleCategory, salePrice) {
-    return orderList.reduce((acc, item) => {
-      if (item.category === saleCategory) {
-        return acc + item.quantity * salePrice;
-      }
-      return acc;
-    }, NONE_SALE_PRICE);
-  }
-
-  /**
-   * 혜택 금액이 존재하지 않는 내역은 필터링
-   * @param { object[] } discounts
-   */
-
-  #filterNonZeroDiscounts(discounts) {
-    return Object.entries(discounts).reduce((acc, [title, amount]) => {
-      if (amount > NONE_SALE_PRICE) {
-        acc[title] = amount;
-      }
-      return acc;
-    }, {});
-  }
-
-  /**
    * 해당 이벤트들의 혜택 계산을 도와주는 함수
    * @param { object[] } totalOrderedList
    * @param { number } totalOrderPrice
@@ -141,7 +112,7 @@ class DiscountMachine {
 
   #calculateAllDiscounts(totalOrderedList, totalOrderPrice) {
     return {
-      [TARGET_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForChristmas(),
+      [TARGET_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForTargetEvent(),
       [WEEK_DAY_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForWeekDay(totalOrderedList),
       [WEEKEND_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForWeekend(totalOrderedList),
       [SPECIAL_EVENT_CONFIG_DATA.title]: this.#calculateSpecialDiscount(),
@@ -160,11 +131,19 @@ class DiscountMachine {
     if (totalOrderPrice >= ORDER_CONFIG_DATA.min_discount_price) {
       this.#discountList = this.#calculateAllDiscounts(totalOrderedList, totalOrderPrice);
     }
-    return this.#filterNonZeroDiscounts(this.#discountList);
+    return CalculatorService.calculateTotalDataExceptZeroValue(this.#discountList);
   }
 
   getTotalDiscount() {
-    return Object.values(this.#discountList).reduce((acc, amount) => acc + amount, 0);
+    return CalculatorService.calculateTotalValueFromData(this.#discountList);
+  }
+
+  getTotalPriceAfterDiscount(totalOrderPrice, totalDiscount) {
+    return (
+      totalOrderPrice -
+      totalDiscount +
+      (this.#discountList?.[FREE_GIFT_EVENT_CONFIG_DATA.title] || 0)
+    );
   }
 }
 
