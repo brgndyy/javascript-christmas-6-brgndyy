@@ -26,7 +26,7 @@ class OrderFormatValidator {
   }
 
   #validateQuantityType(quantity) {
-    if (Number.isNaN(quantity)) {
+    if (typeof quantity !== 'number' || Number.isNaN(quantity)) {
       throw new OrderError();
     }
   }
