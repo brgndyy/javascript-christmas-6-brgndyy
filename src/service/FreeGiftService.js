@@ -1,4 +1,5 @@
 import FREE_GIFT_CONDITION_CONFIG_DATA from '../database/configData/freeGiftConfigData.js';
+import FREE_GIFT_MENU from '../database/menus/freeGiftMenu.js';
 
 class FreeGiftService {
   /**
@@ -8,7 +9,7 @@ class FreeGiftService {
    */
 
   static isEligibleForFreeGift(totalPrice) {
-    return totalPrice > FREE_GIFT_CONDITION_CONFIG_DATA.price;
+    return totalPrice > FREE_GIFT_CONDITION_CONFIG_DATA.price && FREE_GIFT_MENU;
   }
 }
 
