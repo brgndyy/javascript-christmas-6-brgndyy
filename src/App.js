@@ -11,10 +11,23 @@ class App {
 
   #visitDate;
 
+  /**
+   * @type { object } 주문한 내역
+   */
+
+  #totalOrderedList;
+
+  /**
+   * @type { number } 총 주문한 가격
+   */
+
+  #totalOrderPrice;
+
   async run() {
     this.#printOrderStart();
     await asyncFnHandlerWithError(this.#selectDate, this);
     await asyncFnHandlerWithError(this.#selectMenu, this);
+    this.#printAllOrderedMenu();
   }
 
   #printOrderStart() {
@@ -28,8 +41,17 @@ class App {
 
   async #selectMenu() {
     const orderInput = await InputView.readMenu();
+    const { totalOrderedList, totalPrice } = Order.getOrderInfoFromInput(orderInput);
 
-    console.log(orderInput);
+    this.#totalOrderedList = totalOrderedList;
+    this.#totalOrderPrice = totalPrice;
+  }
+
+  #printAllOrderedMenu() {
+    OutputView.printResultStart(this.#visitDate);
+    OutputView.printDivideLine();
+    OutputView.printMenu(this.#totalOrderedList);
+    OutputView.printDivideLine();
   }
 }
 
