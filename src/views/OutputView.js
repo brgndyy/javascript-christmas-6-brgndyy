@@ -59,6 +59,26 @@ const OutputView = {
   },
 
   /**
+   * 총 할인 내역 객체 리스트를 받아서 출력해주는 함수
+   * @param { object[] } discountList
+   */
+
+  printDiscountList(discountList) {
+    Console.print(BANNER_MESSAGES.discount_list);
+
+    const discountListArr = Object.entries(discountList);
+
+    if (discountListArr.length) {
+      discountListArr.forEach(([title, salePrice]) => {
+        Console.print(RESULT_MESSAGES.discount_history(title, formatPrice(salePrice)));
+      });
+      return;
+    }
+
+    Console.print(RESULT_MESSAGES.none_benefit);
+  },
+
+  /**
    * 에러메세지 출력함수
    * @param { string } errorMessage
    */

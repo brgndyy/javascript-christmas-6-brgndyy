@@ -4,6 +4,7 @@ import InputView from './views/InputView.js';
 import EventCalendar from './domains/EventCalendar.js';
 import Order from './domains/Order.js';
 import FreeGiftService from './service/FreeGiftService.js';
+import DiscountMachine from './domains/DiscountMachine.js';
 
 class App {
   /**
@@ -24,6 +25,12 @@ class App {
 
   #totalOrderPrice;
 
+  /**
+   * @type { DiscountMachine } 혜택 내역 및 할인률을 계산해줄 클래스
+   */
+
+  #discountMachine;
+
   async run() {
     this.#printOrderStart();
     await asyncFnHandlerWithError(this.#selectDate, this);
@@ -31,6 +38,7 @@ class App {
     this.#printAllOrderedMenu();
     this.#printOrderResultBeforeDiscount();
     this.#printFreeGiftMenu();
+    this.#printDiscountList();
   }
 
   #printOrderStart() {
@@ -66,6 +74,17 @@ class App {
     const freeGift = FreeGiftService.isEligibleForFreeGift(this.#totalOrderPrice);
 
     OutputView.printIsEligibleFreeGift(freeGift);
+    OutputView.printDivideLine();
+  }
+
+  #printDiscountList() {
+    this.#discountMachine = new DiscountMachine(this.#visitDate);
+    const discountList = this.#discountMachine.getAllDiscountList(
+      this.#totalOrderedList,
+      this.#totalOrderPrice,
+    );
+
+    OutputView.printDiscountList(discountList);
     OutputView.printDivideLine();
   }
 }

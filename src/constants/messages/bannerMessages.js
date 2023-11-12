@@ -4,6 +4,7 @@ const BANNER_MESSAGES = deepFreeze({
   ordered_menu: '<주문 메뉴>',
   total_price_before_discount: '<할인 전 총주문 금액>',
   free_gift: '<증정 메뉴>',
+  discount_list: '<혜택 내역>',
 });
 
 export default BANNER_MESSAGES;
