@@ -79,6 +79,22 @@ const OutputView = {
   },
 
   /**
+   * 총 혜택 금액 출력 함수
+   * @param { number } totalDiscount
+   */
+
+  printTotalDiscountPrice(totalDiscount) {
+    Console.print(BANNER_MESSAGES.total_discount);
+
+    if (totalDiscount) {
+      Console.print(RESULT_MESSAGES.total_discount_price_result(formatPrice(totalDiscount)));
+      return;
+    }
+
+    Console.print(RESULT_MESSAGES.none_price);
+  },
+
+  /**
    * 에러메세지 출력함수
    * @param { string } errorMessage
    */

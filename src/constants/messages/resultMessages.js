@@ -7,6 +7,8 @@ const RESULT_MESSAGES = deepFreeze({
   none_benefit: '없음',
   free_gift: (gift) => `${gift} 1개`,
   discount_history: (title, salePrice) => `${title}: -${salePrice}원`,
+  total_discount_price_result: (price) => `-${price}원`,
+  none_price: '0원',
 });
 
 export default RESULT_MESSAGES;

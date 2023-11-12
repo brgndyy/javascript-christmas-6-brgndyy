@@ -31,6 +31,12 @@ class App {
 
   #discountMachine;
 
+  /**
+   * @type { number } 총 할인 금액
+   */
+
+  #totalDiscountPrice;
+
   async run() {
     this.#printOrderStart();
     await asyncFnHandlerWithError(this.#selectDate, this);
@@ -39,6 +45,7 @@ class App {
     this.#printOrderResultBeforeDiscount();
     this.#printFreeGiftMenu();
     this.#printDiscountList();
+    this.#printTotalDiscountPrice();
   }
 
   #printOrderStart() {
@@ -85,6 +92,13 @@ class App {
     );
 
     OutputView.printDiscountList(discountList);
+    OutputView.printDivideLine();
+  }
+
+  #printTotalDiscountPrice() {
+    this.#totalDiscountPrice = this.#discountMachine.getTotalDiscount();
+
+    OutputView.printTotalDiscountPrice(this.#totalDiscountPrice);
     OutputView.printDivideLine();
   }
 }

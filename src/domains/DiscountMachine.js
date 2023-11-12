@@ -162,6 +162,10 @@ class DiscountMachine {
     }
     return this.#filterNonZeroDiscounts(this.#discountList);
   }
+
+  getTotalDiscount() {
+    return Object.values(this.#discountList).reduce((acc, amount) => acc + amount, 0);
+  }
 }
 
 export default DiscountMachine;
