@@ -31,6 +31,6 @@ describe('OrderService', () => {
 
   test('존재하지 않는 메뉴 주문 시 오류 발생', () => {
     const invalidOrderList = [{ menu: '짜장면', quantity: 1 }];
-    expect(() => orderService.accumulateOrderData(invalidOrderList)).toThrow(OrderError);
+    expect(() => orderService.accumulateOrderData(invalidOrderList)).toThrow(new OrderError());
   });
 });
