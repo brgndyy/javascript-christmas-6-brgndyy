@@ -9,7 +9,7 @@ class EventBadgeService {
 
   static isEligibleForEventBadge(totalDiscountPrice) {
     const foundBadge = EVENT_BADGE_CONFIG_DATA.find(
-      (option) => totalDiscountPrice >= option.minAmount,
+      (option) => totalDiscountPrice >= option.minPrice,
     );
     return foundBadge && foundBadge.badge;
   }
