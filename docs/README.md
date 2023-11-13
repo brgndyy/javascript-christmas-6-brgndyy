@@ -569,7 +569,7 @@ class LottoMachine {
   README.md 파일 작성 중
   </details>
 
-## - 📂 폴더 구조
+# - 📂 폴더 구조
 
 ```
 📦src
