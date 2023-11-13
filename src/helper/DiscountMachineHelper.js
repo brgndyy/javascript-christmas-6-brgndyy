@@ -1,4 +1,4 @@
-class CalculatorService {
+class DiscountMachineHelper {
   /**
    * 혜택 금액이 존재하지 않는 내역은 필터링
    * @param { object[] } data
@@ -34,4 +34,4 @@ class CalculatorService {
   }
 }
 
-export default CalculatorService;
+export default DiscountMachineHelper;

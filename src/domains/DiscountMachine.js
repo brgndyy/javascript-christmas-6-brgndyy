@@ -1,7 +1,7 @@
 import EventCalendar from './EventCalendar.js';
 import EVENT_CONFIG_DATA from '../database/configData/eventConfigData.js';
 import ORDER_CONFIG_DATA from '../database/configData/orderConfigData.js';
-import CalculatorService from '../service/CalculatorService.js';
+import DiscountMachineHelper from '../helper/DiscountMachineHelper.js';
 import findObjectBySlug from '../utils/findObjFromProperty.js';
 import FREE_GIFT_CONFIG_DATA from '../database/configData/freeGiftConfigData.js';
 
@@ -72,7 +72,7 @@ class DiscountMachine {
   #calculateDiscountForWeekDay(orderList) {
     const weekDayEventConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'weekday');
     if (this.#eventCalendar.isWeekday()) {
-      return CalculatorService.calculateQuantityAndPriceFromData(
+      return DiscountMachineHelper.calculateQuantityAndPriceFromData(
         orderList,
         weekDayEventConfig.sale_category,
         weekDayEventConfig.sale_price,
@@ -84,7 +84,7 @@ class DiscountMachine {
   #calculateDiscountForWeekend(orderList) {
     const weekendConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'weekend');
     if (this.#eventCalendar.isWeekend()) {
-      return CalculatorService.calculateQuantityAndPriceFromData(
+      return DiscountMachineHelper.calculateQuantityAndPriceFromData(
         orderList,
         weekendConfig.sale_category,
         weekendConfig.sale_price,
@@ -144,11 +144,11 @@ class DiscountMachine {
     if (this.#totalOrderPrice >= ORDER_CONFIG_DATA.min_discount_price) {
       this.#discountList = this.#calculateAllDiscounts(totalOrderedList);
     }
-    return CalculatorService.calculateTotalDataExceptZeroValue(this.#discountList);
+    return DiscountMachineHelper.calculateTotalDataExceptZeroValue(this.#discountList);
   }
 
   getTotalDiscount() {
-    return CalculatorService.calculateTotalValueFromData(this.#discountList);
+    return DiscountMachineHelper.calculateTotalValueFromData(this.#discountList);
   }
 
   getTotalPriceAfterDiscount(totalOrderPrice, totalDiscount) {
