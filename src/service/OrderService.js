@@ -63,10 +63,12 @@ class OrderService {
    */
 
   #updateTotalOrderedList(acc, menu, quantity) {
+    const totalMenuPrice = this.#calculateMenuPrice(menu, quantity);
     acc.totalOrderedList.push({
       menu: menu.menu,
       quantity,
       category: menu.category,
+      price: totalMenuPrice,
     });
   }
 
