@@ -568,3 +568,52 @@ class LottoMachine {
 
   README.md 파일 작성 중
   </details>
+
+## - 📂 폴더 구조
+
+```
+📦src
+ ┣ 📂constants
+ ┃ ┣ 📂delimiters
+ ┃ ┃ ┗ 📜delimiter.js  // 구분 기호를 담은 상수 파일
+ ┃ ┣ 📂messages
+ ┃ ┃ ┣ 📜bannerMessages.js  // 배너 메세지들을 담은 상수 파일
+ ┃ ┃ ┣ 📜errorMessages.js  // 에러 메세지를 담은 상수 파일
+ ┃ ┃ ┣ 📜orderMessages.js  // 주문 관련 메세지들을 담은 상수 파일
+ ┃ ┃ ┗ 📜resultMessages.js // 결과 출력 메세지들을 담은 상수 파일
+ ┣ 📂database
+ ┃ ┣ 📂configData
+ ┃ ┃ ┣ 📜dateConfigData.js // 날짜 관련 시스템 객체
+ ┃ ┃ ┣ 📜eventBageConfigData.js // 이벤트 뱃지 데이터 객체
+ ┃ ┃ ┣ 📜eventConfigData.js // 이벤트 관련 데이터 객체
+ ┃ ┃ ┣ 📜freeGiftConfigData.js // 증정 선물 관련 데이터 객체
+ ┃ ┃ ┗ 📜orderConfigData.js // 주문 관련 데이터 객체
+ ┃ ┣ 📂menus
+ ┃ ┃ ┣ 📜allMenu.js // 모든 메뉴 데이터 객체
+ ┣ 📂domains
+ ┃ ┣ 📜DiscountMachine.js // 할인 적용을 도와주는 클래스
+ ┃ ┣ 📜EventCalendar.js // 방문 날짜에 해당하는 정보들을 담고 있는 클래스
+ ┃ ┗ 📜Order.js // 주문을 담당하는 클래스
+ ┣ 📂errors
+ ┃ ┣ 📜DateError.js // 날짜 입력 예외 처리 관련 커스텀 클래스
+ ┃ ┗ 📜OrderError.js // 주문 입력 예외 처리 관련 커스텀 클래스
+ ┣ 📂service
+ ┃ ┣ 📜CalculatorService.js // 데이터의 내부 값을 계산해주는 도와주는 클래스
+ ┃ ┣ 📜EventBadgeService.js // 이벤트 뱃지 관련 조건 유무 판단을 도와주는 클래스
+ ┃ ┣ 📜FreeGiftService.js // 증정 이벤트 관련 조건 유무 판단을 도와주는 클래스
+ ┃ ┗ 📜OrderService.js // 주문 내역을 객체화해주도록 도와주는 클래스
+ ┣ 📂utils
+ ┃ ┣ 📜asyncFnHandlerWithError.js // 비동기 제어 유틸 함수
+ ┃ ┣ 📜deepFreeze.js // 객체를 깊은 동결 해주는 유틸 함수
+ ┃ ┣ 📜findObjFromProperty.js // 객체 배열 에서 해당 프로퍼티에 맞는 단일 객체 반환 함수
+ ┃ ┗ 📜formatPrice.js // 출력 형식에 맞도록 숫자를 변환 해주는 유틸 함수
+ ┣ 📂validator
+ ┃ ┣ 📜OrderFormatValidator.js // 주문 내역 입력에 관하여 유효성 검증하는 클래스
+ ┃ ┣ 📜OrderRulesValidator.js // 주문 규칙 관련하여 유효성 검증하는 클래스
+ ┃ ┗ 📜OrderValidator.js // 위의 두개를 합쳐주는 클래스
+ ┣ 📂views
+ ┃ ┣ 📜InputView.js // 입력 객체
+ ┃ ┗ 📜OutputView.js // 출력 객체
+ ┣ 📜App.js // 총체적인 어플리케이션의 진행을 담당하는 메인 클래스
+ ┗ 📜index.js // 어플리케이션 진입 클래스
+```
