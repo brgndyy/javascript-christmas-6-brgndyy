@@ -571,6 +571,9 @@ class LottoMachine {
 
 # - 📂 폴더 구조
 
+<details>
+<summary>자세히 보기</summary>
+
 ```
 📦src
  ┣ 📂constants
@@ -597,10 +600,10 @@ class LottoMachine {
  ┣ 📂errors
  ┃ ┣ 📜DateError.js // 날짜 입력 예외 처리 관련 커스텀 클래스
  ┃ ┗ 📜OrderError.js // 주문 입력 예외 처리 관련 커스텀 클래스
+ ┣ 📂helper
+ ┃ ┗ 📜DiscountMachineHelper.js // 할인 내역 관련 값을 계산해주는 헬퍼 클래스
  ┣ 📂service
- ┃ ┣ 📜CalculatorService.js // 데이터의 내부 값을 계산해주는 도와주는 클래스
- ┃ ┣ 📜EventBadgeService.js // 이벤트 뱃지 관련 조건 유무 판단을 도와주는 클래스
- ┃ ┣ 📜FreeGiftService.js // 증정 이벤트 관련 조건 유무 판단을 도와주는 클래스
+ ┃ ┣ 📜EligibilityChecker.js // 이벤트 뱃지 및 증정 선물 자격 유무를 판단해주는 서비스 클래스
  ┃ ┗ 📜OrderService.js // 주문 내역을 객체화해주도록 도와주는 클래스
  ┣ 📂utils
  ┃ ┣ 📜asyncFnHandlerWithError.js // 비동기 제어 유틸 함수
@@ -615,5 +618,71 @@ class LottoMachine {
  ┃ ┣ 📜InputView.js // 입력 객체
  ┃ ┗ 📜OutputView.js // 출력 객체
  ┣ 📜App.js // 총체적인 어플리케이션의 진행을 담당하는 메인 클래스
- ┗ 📜index.js // 어플리케이션 진입 클래스
+ ┗ 📜index.js // 어플리케이션 진입점이 되는 부분
 ```
+
+</details>
+
+# 🔍 테스트 커버리지
+
+jest의 커버리지 기능으로 테스트 실행 결과를 확인합니다.
+
+```
+npx jest --coverage
+```
+
+<details>
+<summary>테스트 결과 보기</summary>
+
+```
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |     100 |      100 |     100 |     100 |
+ src                         |     100 |      100 |     100 |     100 |
+  App.js                     |     100 |      100 |     100 |     100 |
+ src/constants/delimiters    |     100 |      100 |     100 |     100 |
+  delimiter.js               |     100 |      100 |     100 |     100 |
+ src/constants/messages      |     100 |      100 |     100 |     100 |
+  bannerMessages.js          |     100 |      100 |     100 |     100 |
+  errorMessages.js           |     100 |      100 |     100 |     100 |
+  orderMessages.js           |     100 |      100 |     100 |     100 |
+  resultMessages.js          |     100 |      100 |     100 |     100 |
+ src/database/configData     |     100 |      100 |     100 |     100 |
+  dateConfigData.js          |     100 |      100 |     100 |     100 |
+  eventBageConfigData.js     |     100 |      100 |     100 |     100 |
+  eventConfigData.js         |     100 |      100 |     100 |     100 |
+  freeGiftConfigData.js      |     100 |      100 |     100 |     100 |
+  orderConfigData.js         |     100 |      100 |     100 |     100 |
+ src/database/menus          |     100 |      100 |     100 |     100 |
+  allMenu.js                 |     100 |      100 |     100 |     100 |
+ src/domains                 |     100 |      100 |     100 |     100 |
+  DiscountMachine.js         |     100 |      100 |     100 |     100 |
+  EventCalendar.js           |     100 |      100 |     100 |     100 |
+  Order.js                   |     100 |      100 |     100 |     100 |
+ src/errors                  |     100 |      100 |     100 |     100 |
+  DateError.js               |     100 |      100 |     100 |     100 |
+  OrderError.js              |     100 |      100 |     100 |     100 |
+ src/helper                  |     100 |      100 |     100 |     100 |
+  DiscountMachineHelper.js   |     100 |      100 |     100 |     100 |
+ src/service                 |     100 |      100 |     100 |     100 |
+  EligibilityChecker.js      |     100 |      100 |     100 |     100 |
+  OrderService.js            |     100 |      100 |     100 |     100 |
+ src/utils                   |     100 |      100 |     100 |     100 |
+  asyncFnHandlerWithError.js |     100 |      100 |     100 |     100 |
+  deepFreeze.js              |     100 |      100 |     100 |     100 |
+  findObjFromProperty.js     |     100 |      100 |     100 |     100 |
+  formatPrice.js             |     100 |      100 |     100 |     100 |
+ src/validator               |     100 |      100 |     100 |     100 |
+  OrderFormatValidator.js    |     100 |      100 |     100 |     100 |
+  OrderRulesValidator.js     |     100 |      100 |     100 |     100 |
+  OrderValidator.js          |     100 |      100 |     100 |     100 |
+ src/views                   |     100 |      100 |     100 |     100 |
+  InputView.js               |     100 |      100 |     100 |     100 |
+  OutputView.js              |     100 |      100 |     100 |     100 |
+-----------------------------|---------|----------|---------|---------|-------------------
+
+
+```
+
+</details>
