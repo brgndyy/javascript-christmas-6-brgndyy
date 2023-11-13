@@ -148,4 +148,35 @@ describe('추가적인 총체적인 어플리케이션 테스트', () => {
 
     expectLogContains(getOutput(logSpy), expected);
   });
+
+  test('혜택 조건 충족 못할때 테스트', async () => {
+    // given
+    const logSpy = getLogSpy();
+    mockQuestions(['25', '양송이수프-1']);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    const expected = [
+      '12월 25일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!',
+      '<주문 메뉴>',
+      '양송이수프 1개',
+      '<할인 전 총주문 금액>',
+      '6,000원',
+      '<증정 메뉴>',
+      '없음',
+      '<혜택 내역>',
+      '없음',
+      '<총혜택 금액>',
+      '0원',
+      '<할인 후 예상 결제 금액>',
+      '6,000원',
+      '<12월 이벤트 배지>',
+      '없음',
+    ];
+
+    expectLogContains(getOutput(logSpy), expected);
+  });
 });
