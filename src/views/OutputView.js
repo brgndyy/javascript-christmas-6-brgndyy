@@ -4,10 +4,11 @@ import RESULT_MESSAGES from '../constants/messages/resultMessages.js';
 import BANNER_MESSAGES from '../constants/messages/bannerMessages.js';
 import DELIMITER from '../constants/delimiters/delimiter.js';
 import formatPrice from '../utils/formatPrice.js';
+import DATE_CONFIG_DATA from '../database/configData/dateConfigData.js';
 
 const OutputView = {
   printStartLine() {
-    Console.print(ORDER_MESSAGES.start_message);
+    Console.print(ORDER_MESSAGES.start_message(DATE_CONFIG_DATA.month_standard));
   },
 
   /**
@@ -16,7 +17,7 @@ const OutputView = {
    */
 
   printResultStart(date) {
-    Console.print(RESULT_MESSAGES.result_start(date));
+    Console.print(RESULT_MESSAGES.result_start(DATE_CONFIG_DATA.month_standard, date));
   },
 
   /**
@@ -111,7 +112,7 @@ const OutputView = {
    */
 
   printEventBadge(eventBadge) {
-    Console.print(BANNER_MESSAGES.event_badge);
+    Console.print(BANNER_MESSAGES.event_badge(DATE_CONFIG_DATA.month_standard));
 
     if (eventBadge) {
       Console.print(eventBadge);

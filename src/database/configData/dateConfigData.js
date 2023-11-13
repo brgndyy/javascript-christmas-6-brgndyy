@@ -34,7 +34,7 @@ const VISIT_DAY = (nowDate) => new Date(YEAR_STANDARD, MONTH_STANDARD, nowDate).
 
 const DATE_CONFIG_DATA = deepFreeze({
   year_standard: YEAR_STANDARD,
-  month_standard: MONTH_STANDARD,
+  month_standard: MONTH_STANDARD + 1,
   min_date: MIN_DATE,
   max_date: MAX_DATE,
   day_to_number: DAY_TO_NUMBER,
