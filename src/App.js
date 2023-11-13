@@ -88,11 +88,8 @@ class App {
   }
 
   #printDiscountList() {
-    this.#discountMachine = new DiscountMachine(this.#visitDate);
-    const discountList = this.#discountMachine.getAllDiscountList(
-      this.#totalOrderedList,
-      this.#totalOrderPrice,
-    );
+    this.#discountMachine = new DiscountMachine(this.#visitDate, this.#totalOrderPrice);
+    const discountList = this.#discountMachine.getAllDiscountList(this.#totalOrderedList);
 
     OutputView.printDiscountList(discountList);
     OutputView.printDivideLine();
