@@ -22,6 +22,8 @@ const DAY_TO_NUMBER = {
   saturday: 6,
 };
 
+const EVENT_TARGET_DATE = 25;
+
 /**
  * 방문 날짜에 해당 하는 요일 반환
  * @param { number } nowDate
@@ -36,6 +38,7 @@ const DATE_CONFIG_DATA = deepFreeze({
   min_date: MIN_DATE,
   max_date: MAX_DATE,
   day_to_number: DAY_TO_NUMBER,
+  event_target_date: EVENT_TARGET_DATE,
   visit_day: (nowDate) => VISIT_DAY(nowDate),
 });
 
