@@ -9,7 +9,7 @@ class EligibilityChecker {
    */
 
   static isEligibleForFreeGift(totalPrice) {
-    return totalPrice > FREE_GIFT_CONFIG_DATA.total_price && FREE_GIFT_CONFIG_DATA.menu;
+    return totalPrice > FREE_GIFT_CONFIG_DATA.price_condition && FREE_GIFT_CONFIG_DATA.menu;
   }
 
   /**
