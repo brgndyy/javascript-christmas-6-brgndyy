@@ -3,9 +3,8 @@ import OutputView from './views/OutputView.js';
 import InputView from './views/InputView.js';
 import EventCalendar from './domains/EventCalendar.js';
 import Order from './domains/Order.js';
-import FreeGiftService from './service/FreeGiftService.js';
 import DiscountMachine from './domains/DiscountMachine.js';
-import EventBadgeService from './service/EventBadgeService.js';
+import EligibilityChecker from './service/EligibilityChecker.js';
 
 class App {
   /**
@@ -85,7 +84,7 @@ class App {
   }
 
   #printFreeGiftMenu() {
-    const freeGift = FreeGiftService.isEligibleForFreeGift(this.#totalOrderPrice);
+    const freeGift = EligibilityChecker.isEligibleForFreeGift(this.#totalOrderPrice);
 
     OutputView.printIsEligibleFreeGift(freeGift);
     OutputView.printDivideLine();
@@ -117,7 +116,7 @@ class App {
   }
 
   #printEventBadge() {
-    const eventBadge = EventBadgeService.isEligibleForEventBadge(this.#totalDiscountPrice);
+    const eventBadge = EligibilityChecker.isEligibleForEventBadge(this.#totalDiscountPrice);
 
     OutputView.printEventBadge(eventBadge);
   }
