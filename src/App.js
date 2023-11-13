@@ -4,7 +4,7 @@ import InputView from './views/InputView.js';
 import EventCalendar from './domains/EventCalendar.js';
 import Order from './domains/Order.js';
 import DiscountMachine from './domains/DiscountMachine.js';
-import eligibilityChecker from './service/eligibilityChecker.js';
+import EligibilityChecker from './service/EligibilityChecker.js';
 
 class App {
   /**
@@ -84,7 +84,7 @@ class App {
   }
 
   #printFreeGiftMenu() {
-    const freeGift = eligibilityChecker.isEligibleForFreeGift(this.#totalOrderPrice);
+    const freeGift = EligibilityChecker.isEligibleForFreeGift(this.#totalOrderPrice);
 
     OutputView.printIsEligibleFreeGift(freeGift);
     OutputView.printDivideLine();
@@ -116,7 +116,7 @@ class App {
   }
 
   #printEventBadge() {
-    const eventBadge = eligibilityChecker.isEligibleForEventBadge(this.#totalDiscountPrice);
+    const eventBadge = EligibilityChecker.isEligibleForEventBadge(this.#totalDiscountPrice);
 
     OutputView.printEventBadge(eventBadge);
   }
