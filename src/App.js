@@ -42,6 +42,7 @@ class App {
     this.#printOrderStart();
     await asyncFnHandlerWithError(this.#selectDate, this);
     await asyncFnHandlerWithError(this.#selectMenu, this);
+    this.#printResultStart();
     this.#printAllOrderedMenu();
     this.#printOrderResultBeforeDiscount();
     this.#printFreeGiftMenu();
@@ -68,9 +69,12 @@ class App {
     this.#totalOrderPrice = totalPrice;
   }
 
-  #printAllOrderedMenu() {
+  #printResultStart() {
     OutputView.printResultStart(this.#visitDate);
     OutputView.printDivideLine();
+  }
+
+  #printAllOrderedMenu() {
     OutputView.printMenu(this.#totalOrderedList);
     OutputView.printDivideLine();
   }
