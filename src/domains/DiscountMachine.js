@@ -1,16 +1,10 @@
 import EventCalendar from './EventCalendar.js';
-import {
-  WEEKEND_EVENT_CONFIG_DATA,
-  TARGET_EVENT_CONFIG_DATA,
-  WEEK_DAY_EVENT_CONFIG_DATA,
-  SPECIAL_EVENT_CONFIG_DATA,
-  FREE_GIFT_EVENT_CONFIG_DATA,
-  NONE_SALE_PRICE,
-} from '../database/configData/eventConfigData.js';
+import EVENT_CONFIG_DATA from '../database/configData/eventConfigData.js';
 import FREE_GIFT_CONDITION from '../database/configData/freeGiftConfigData.js';
 import ORDER_CONFIG_DATA from '../database/configData/orderConfigData.js';
 import { TOTAL_FREE_GIFT_PRICE } from '../database/menus/freeGiftMenu.js';
 import CalculatorService from '../service/CalculatorService.js';
+import findObjectBySlug from '../utils/findObjFromProperty.js';
 
 class DiscountMachine {
   /**
@@ -25,33 +19,49 @@ class DiscountMachine {
 
   #discountList;
 
-  constructor(date) {
+  /**
+   * @type { object } 각각 이벤트 내역에 맞는 할인 적용 함수 모음 객체
+   */
+
+  #discountCalculators = {
+    weekday: this.#calculateDiscountForWeekDay,
+    weekend: this.#calculateDiscountForWeekend,
+    special: this.#calculateSpecialDiscount,
+    free_gift: this.#calculateDiscountForFreeGift,
+    target_event: this.#calculateDiscountForTargetEvent,
+  };
+
+  /**
+   * @type { number } 총 주문금애
+   */
+
+  #totalOrderPrice;
+
+  constructor(date, totalOrderPrice) {
     this.#eventCalendar = new EventCalendar(date);
+    this.#totalOrderPrice = totalOrderPrice;
     this.#initializeDiscountList();
   }
 
   #initializeDiscountList() {
-    this.#discountList = {
-      [TARGET_EVENT_CONFIG_DATA.title]: NONE_SALE_PRICE,
-      [WEEK_DAY_EVENT_CONFIG_DATA.title]: NONE_SALE_PRICE,
-      [WEEKEND_EVENT_CONFIG_DATA.title]: NONE_SALE_PRICE,
-      [SPECIAL_EVENT_CONFIG_DATA.title]: NONE_SALE_PRICE,
-      [FREE_GIFT_EVENT_CONFIG_DATA.title]: NONE_SALE_PRICE,
-    };
+    this.#discountList = EVENT_CONFIG_DATA.reduce((discountList, eventConfig) => {
+      return {
+        ...discountList,
+        [eventConfig.title]: ORDER_CONFIG_DATA.zero_price,
+      };
+    }, {});
   }
 
   #calculateDiscountForTargetEvent() {
     const dateOfMonth = this.#eventCalendar.getDate();
+    const targetEventConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'target_event');
     if (
-      dateOfMonth >= TARGET_EVENT_CONFIG_DATA.sale_start_day &&
-      dateOfMonth <= TARGET_EVENT_CONFIG_DATA.sale_end_day
+      dateOfMonth >= targetEventConfig.sale_start_day &&
+      dateOfMonth <= targetEventConfig.sale_end_day
     ) {
-      return (
-        TARGET_EVENT_CONFIG_DATA.sale_basic_price +
-        (dateOfMonth - 1) * TARGET_EVENT_CONFIG_DATA.sale_range
-      );
+      return targetEventConfig.sale_basic_price + (dateOfMonth - 1) * targetEventConfig.sale_range;
     }
-    return NONE_SALE_PRICE;
+    return ORDER_CONFIG_DATA.zero_price;
   }
 
   /**
@@ -61,33 +71,36 @@ class DiscountMachine {
    */
 
   #calculateDiscountForWeekDay(orderList) {
+    const weekDayEventConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'weekday');
     if (this.#eventCalendar.isWeekday()) {
       return CalculatorService.calculateQuantityAndPriceFromData(
         orderList,
-        WEEK_DAY_EVENT_CONFIG_DATA.sale_category,
-        WEEK_DAY_EVENT_CONFIG_DATA.sale_price,
+        weekDayEventConfig.sale_category,
+        weekDayEventConfig.sale_price,
       );
     }
-    return NONE_SALE_PRICE;
+    return ORDER_CONFIG_DATA.zero_price;
   }
 
   #calculateDiscountForWeekend(orderList) {
+    const weekendConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'weekend');
     if (this.#eventCalendar.isWeekend()) {
       return CalculatorService.calculateQuantityAndPriceFromData(
         orderList,
-        WEEKEND_EVENT_CONFIG_DATA.sale_category,
-        WEEKEND_EVENT_CONFIG_DATA.sale_price,
+        weekendConfig.sale_category,
+        weekendConfig.sale_price,
       );
     }
-    return NONE_SALE_PRICE;
+    return ORDER_CONFIG_DATA.zero_price;
   }
 
   #calculateSpecialDiscount() {
+    const specialConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'special');
     if (this.#eventCalendar.isSpecialDay()) {
-      return SPECIAL_EVENT_CONFIG_DATA.sale_price;
+      return specialConfig.sale_price;
     }
 
-    return NONE_SALE_PRICE;
+    return ORDER_CONFIG_DATA.zero_price;
   }
 
   /**
@@ -96,11 +109,11 @@ class DiscountMachine {
    * @returns { number }
    */
 
-  #calculateDiscountForFreeGift(totalOrderPrice) {
-    if (totalOrderPrice >= FREE_GIFT_CONDITION.price) {
+  #calculateDiscountForFreeGift() {
+    if (this.#totalOrderPrice >= FREE_GIFT_CONDITION.price) {
       return TOTAL_FREE_GIFT_PRICE;
     }
-    return NONE_SALE_PRICE;
+    return ORDER_CONFIG_DATA.zero_price;
   }
 
   /**
@@ -110,16 +123,17 @@ class DiscountMachine {
    * @returns { object[] }
    */
 
-  #calculateAllDiscounts(totalOrderedList, totalOrderPrice) {
-    return {
-      [TARGET_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForTargetEvent(),
-      [WEEK_DAY_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForWeekDay(totalOrderedList),
-      [WEEKEND_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForWeekend(totalOrderedList),
-      [SPECIAL_EVENT_CONFIG_DATA.title]: this.#calculateSpecialDiscount(),
-      [FREE_GIFT_EVENT_CONFIG_DATA.title]: this.#calculateDiscountForFreeGift(totalOrderPrice),
-    };
-  }
+  #calculateAllDiscounts(totalOrderedList) {
+    return EVENT_CONFIG_DATA.reduce((discountResults, eventConfig) => {
+      const calculator = this.#discountCalculators[eventConfig.slug];
+      const discountAmount = calculator.call(this, totalOrderedList);
 
+      return {
+        ...discountResults,
+        [eventConfig.title]: discountAmount,
+      };
+    }, {});
+  }
   /**
    * 주문 내역 객체 배열과 총 주문 금액을 받아서, 총 혜택 내역을 반환하는 함수
    * @param { object[] } totalOrderedList
@@ -127,9 +141,9 @@ class DiscountMachine {
    * @returns { object[] }
    */
 
-  getAllDiscountList(totalOrderedList, totalOrderPrice) {
-    if (totalOrderPrice >= ORDER_CONFIG_DATA.min_discount_price) {
-      this.#discountList = this.#calculateAllDiscounts(totalOrderedList, totalOrderPrice);
+  getAllDiscountList(totalOrderedList) {
+    if (this.#totalOrderPrice >= ORDER_CONFIG_DATA.min_discount_price) {
+      this.#discountList = this.#calculateAllDiscounts(totalOrderedList);
     }
     return CalculatorService.calculateTotalDataExceptZeroValue(this.#discountList);
   }
@@ -139,11 +153,8 @@ class DiscountMachine {
   }
 
   getTotalPriceAfterDiscount(totalOrderPrice, totalDiscount) {
-    return (
-      totalOrderPrice -
-      totalDiscount +
-      (this.#discountList?.[FREE_GIFT_EVENT_CONFIG_DATA.title] || 0)
-    );
+    const freeGiftEventConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'free_gift');
+    return totalOrderPrice - totalDiscount + (this.#discountList?.[freeGiftEventConfig.title] || 0);
   }
 }
 
