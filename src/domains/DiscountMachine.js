@@ -1,10 +1,9 @@
 import EventCalendar from './EventCalendar.js';
 import EVENT_CONFIG_DATA from '../database/configData/eventConfigData.js';
-import FREE_GIFT_CONDITION from '../database/configData/freeGiftConfigData.js';
 import ORDER_CONFIG_DATA from '../database/configData/orderConfigData.js';
-import { TOTAL_FREE_GIFT_PRICE } from '../database/menus/freeGiftMenu.js';
 import CalculatorService from '../service/CalculatorService.js';
 import findObjectBySlug from '../utils/findObjFromProperty.js';
+import FREE_GIFT_CONFIG_DATA from '../database/configData/freeGiftConfigData.js';
 
 class DiscountMachine {
   /**
@@ -110,8 +109,8 @@ class DiscountMachine {
    */
 
   #calculateDiscountForFreeGift() {
-    if (this.#totalOrderPrice >= FREE_GIFT_CONDITION.price) {
-      return TOTAL_FREE_GIFT_PRICE;
+    if (this.#totalOrderPrice >= FREE_GIFT_CONFIG_DATA.price_condition) {
+      return FREE_GIFT_CONFIG_DATA.total_price;
     }
     return ORDER_CONFIG_DATA.zero_price;
   }
