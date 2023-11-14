@@ -690,6 +690,30 @@ const expectedTestOutput = [
   },
   {
     id: 27,
+    date: 25,
+    orderList: ['아이스크림-2'],
+    expectedResult: [
+      '12월 25일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!',
+      '<주문 메뉴>',
+      '아이스크림 2개',
+      '<할인 전 총주문 금액>',
+      '10,000원',
+      '<증정 메뉴>',
+      '없음',
+      '<혜택 내역>',
+      '평일 할인: -4,046원',
+      '크리스마스 디데이 할인: -3,400원',
+      '특별 할인: -1,000원',
+      '<총혜택 금액>',
+      '-8,446원',
+      '<할인 후 예상 결제 금액>',
+      '1,554원',
+      '<12월 이벤트 배지>',
+      '별',
+    ],
+  },
+  {
+    id: 28,
     date: 26,
     orderList: ['타파스-2,제로콜라-5,양송이수프-1,초코케이크-2,바비큐립-3'],
     expectedResult: [
@@ -716,7 +740,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 28,
+    id: 29,
     date: 27,
     orderList: ['레드와인-10,초코케이크-1'],
     expectedResult: [
@@ -740,7 +764,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 29,
+    id: 30,
     date: 28,
     orderList: ['초코케이크-5,아이스크림-5,바비큐립-1'],
     expectedResult: [
@@ -765,7 +789,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 30,
+    id: 31,
     date: 29,
     orderList: ['양송이수프-3,타파스-2,바비큐립-1,크리스마스파스타-1,샴페인-1'],
     expectedResult: [
@@ -792,7 +816,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 31,
+    id: 32,
     date: 30,
     orderList: ['크리스마스파스타-3'],
     expectedResult: [
@@ -814,7 +838,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 32,
+    id: 33,
     date: 31,
     orderList: ['양송이수프-1,바비큐립-1,초코케이크-1,샴페인-1'],
     expectedResult: [
@@ -840,7 +864,7 @@ const expectedTestOutput = [
     ],
   },
   {
-    id: 33,
+    id: 34,
     date: 31,
     orderList: ['양송이수프-1,제로콜라-1'],
     expectedResult: [
