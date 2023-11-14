@@ -605,6 +605,14 @@ class LottoMachine {
  ┣ 📂service
  ┃ ┣ 📜EligibilityChecker.js // 이벤트 뱃지 및 증정 선물 자격 유무를 판단해주는 서비스 클래스
  ┃ ┗ 📜OrderService.js // 주문 내역을 객체화해주도록 도와주는 클래스
+ ┃ ┣ 📂test
+ ┃ ┣ 📂data
+ ┃ ┃ ┗ 📜expectedTestOutput.js // 테스트 케이스들을 담은 객체 배열
+ ┃ ┗ 📂testUtils
+ ┃ ┃ ┣ 📜expectedLogContains.js // 기본으로 제공 받있던 테스트 함수 유틸화
+ ┃ ┃ ┣ 📜getLogSpy.js  //  // 기본으로 제공 받있던 테스트 함수 유틸화(2)
+ ┃ ┃ ┣ 📜getOutput.js // 기본으로 제공 받있던 테스트 함수 유틸화(3)
+ ┃ ┃ ┗ 📜mockQuestions.js // 기본으로 제공 받있던 테스트 함수 유틸화(4)
  ┣ 📂utils
  ┃ ┣ 📜asyncFnHandlerWithError.js // 비동기 제어 유틸 함수
  ┃ ┣ 📜deepFreeze.js // 객체를 깊은 동결 해주는 유틸 함수
