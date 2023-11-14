@@ -151,9 +151,11 @@ class DiscountMachine {
     return DiscountMachineHelper.calculateTotalValueFromData(this.#discountList);
   }
 
-  getTotalPriceAfterDiscount(totalOrderPrice, totalDiscount) {
+  getTotalPriceAfterDiscount(totalDiscount) {
     const freeGiftEventConfig = findObjectBySlug(EVENT_CONFIG_DATA, 'free_gift');
-    return totalOrderPrice - totalDiscount + (this.#discountList?.[freeGiftEventConfig.title] || 0);
+    return (
+      this.#totalOrderPrice - totalDiscount + (this.#discountList?.[freeGiftEventConfig.title] || 0)
+    );
   }
 }
 

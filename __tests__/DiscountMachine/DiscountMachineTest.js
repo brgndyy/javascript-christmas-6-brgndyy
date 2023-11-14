@@ -38,13 +38,9 @@ describe('DiscountMachine 클래스 테스트', () => {
   });
 
   test('getTotalPriceAfterDiscount 메서드가 최종 가격을 올바르게 계산하는지 확인', () => {
-    const mockTotalOrderPrice = 100000;
     const mockTotalDiscount = 5000;
-    const expectedTotalPrice = mockTotalOrderPrice - mockTotalDiscount;
-    const result = discountMachine.getTotalPriceAfterDiscount(
-      mockTotalOrderPrice,
-      mockTotalDiscount,
-    );
+    const expectedTotalPrice = mockOrderPrice - mockTotalDiscount;
+    const result = discountMachine.getTotalPriceAfterDiscount(mockTotalDiscount);
     expect(result).toBe(expectedTotalPrice);
   });
 });

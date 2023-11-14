@@ -107,7 +107,6 @@ class App {
 
   #printTotalPriceAfterDiscount() {
     const totalPriceAfterDiscount = this.#discountMachine.getTotalPriceAfterDiscount(
-      this.#totalOrderPrice,
       this.#totalDiscountPrice,
     );
 
