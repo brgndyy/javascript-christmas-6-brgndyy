@@ -631,6 +631,17 @@ class LottoMachine {
 
 </details>
 
+# 🔨 구조도
+
+간략적인 어플리케이션 구조도입니다.
+
+<details>
+<summary>자세히 보기</summary>
+
+![4주차 구조도](https://github.com/brgndyy/javascript-christmas-6-brgndyy/assets/109535991/7fcdd50a-8839-43b7-bec6-bdf72a1ac37e)
+
+</details>
+
 # 🔍 테스트 커버리지
 
 jest의 커버리지 기능으로 테스트 실행 결과를 확인합니다.
