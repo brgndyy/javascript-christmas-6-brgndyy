@@ -566,7 +566,7 @@ class LottoMachine {
 - <details>
     <summary>기능을 구현하기 전 docs/README.md에 구현할 기능 목록을 정리해 추가한다.</summary>
 
-  README.md 파일 작성 중
+  README.md 파일에 내용 작성 (완료)
   </details>
 
 # - 📂 폴더 구조
